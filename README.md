@@ -1,50 +1,185 @@
-# Welcome to your Expo app 👋
+# HONDANA 📚
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+スマートフォンの中に、自分だけの本棚を作ることができる書籍管理アプリです。
 
-## Get started
+本のISBNバーコードをカメラで読み取ることで書籍情報を取得し、実際の本棚に本を収納するような感覚で、自分が持っている本や購入予定の本を管理できます。
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 使用技術
 
-2. Start the app
+- TypeScript
+- React Native
+- Expo
+- Expo Router
+- expo-camera
+- AsyncStorage
+- 国立国会図書館の書誌情報
+- Open Library
+- Google Books
+- Git / GitHub
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 開発人数
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+**1人**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+企画、設計、UIデザイン、実装、テストを個人で行いました。
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 開発期間
+
+**2026年8月17日 ～ 2026年8月19日**
+
+---
+
+## 開発の目的・意図
+
+自分が所有している本や、これから購入したい本をスマートフォンで簡単に管理できるアプリを作りたいと考え、HONDANAを開発しました。
+
+一般的な書籍管理アプリのように本を一覧で表示するだけではなく、実際の本棚に本を収納しているような見た目にすることで、登録した本を視覚的に楽しみながら管理できることを目指しました。
+
+また、1冊ずつタイトルや著者を手入力する手間を減らすため、本のISBNバーコードをスマートフォンのカメラで読み取り、書籍情報を自動取得できるようにしました。
+
+---
+
+## 主な機能
+
+### 📷 バーコードから本を登録
+
+スマートフォンのカメラで本のISBNバーコードを読み取り、ISBNを利用してタイトルや著者などの書籍情報を取得します。
+
+取得できなかった場合にも手動で情報を入力して登録できます。
+
+### 📚 デジタル本棚
+
+登録した本を、実際の本棚に並べているようなデザインで表示します。
+
+本のページ数をもとに背表紙の横幅を変化させ、ページ数の多い本ほど厚い本として表示されるようにしました。
+
+本が1段に収まらなくなった場合には、自動的に次の段へ配置されます。
+
+### 🛒 購入状態の管理
+
+本を「購入済み」「未購入」に分けて管理できます。
+
+それぞれを完全に別の本棚にするのではなく、1つの本棚の中で段を分けて表示するデザインにしています。
+
+### 🔖 読書状態の管理
+
+本ごとに以下の読書状態を設定できます。
+
+- 未読
+- 読書中
+- 読了
+
+「読書中」に設定した本には、背表紙にしおりが表示されます。
+
+### ⭐ お気に入り
+
+お気に入りの本を登録し、お気に入りの本だけを表示できます。
+
+### 🔍 検索・絞り込み
+
+タイトルや著者名から本を検索できます。
+
+また、読書状態による絞り込みにも対応しています。
+
+### ↔️ 本の並び替え
+
+本棚に置かれている本の順番を変更できます。
+
+### 📋 登録した本の一覧
+
+本棚とは別に、登録した本を一覧で確認できるページを用意しています。
+
+### 🎨 本棚のカスタマイズ
+
+本棚のテーマや本の配色を変更できます。
+
+テーマによって本棚の色だけでなく、植物、ランプ、ラジオなどの小物も変化するようにしています。
+
+---
+
+## 開発で工夫・努力した点
+
+### 1. 「本棚らしさ」の表現
+
+HONDANAで特にこだわったのは、単なる書籍一覧ではなく「実際の本棚」のように見えるUIです。
+
+本のページ数から背表紙の幅を計算し、ページ数の多い本ほど厚く表示するようにしました。
+
+さらに、画面の横幅と各書籍の幅をもとに、本が棚の横幅を超える場合は自動的に次の段へ移動する処理を実装しました。
+
+植物やランプなどの小物についても、本とは別の場所に表示するのではなく、本と同じ棚板の上に配置することで、本棚に実際に置かれているように見えるよう調整しました。
+
+### 2. ISBNからの書籍情報取得
+
+バーコードから読み取ったISBNを利用して書籍情報を取得する機能を実装しました。
+
+開発中、日本の書籍ではサービスによって情報を取得できない場合があったため、複数の書籍情報源を利用できるようにしました。
+
+また、取得した著者情報が「姓、名、生年」のような形式になる場合があったため、アプリ上では読みやすい著者名になるよう整形処理も行っています。
+
+### 3. 状態を視覚的に分かりやすくした
+
+読書中の本にはしおりを表示するなど、文字だけで状態を示すのではなく、本棚を見るだけでも状態が分かるUIを意識しました。
+
+購入済み・未購入についても、本棚そのものを分けるのではなく、同じ本棚の段を分けることで見た目と管理のしやすさを両立しました。
+
+### 4. コードの可読性・保守性の改善
+
+機能追加を進める中で、本棚画面のコードが大きくなったため、役割ごとにコンポーネントを分割しました。
+
+主に以下のように分けています。
+
+- `Bookshelf.tsx`：本棚全体・段の管理
+- `BookSpine.tsx`：本の背表紙・しおりなど
+- `ShelfDecorations.tsx`：植物やランプなどの小物
+- `bookshelfTheme.ts`：本棚テーマや本の色・サイズ
+
+これにより、UIの変更や機能追加を行う際に、変更箇所を把握しやすい構成にしました。
+
+---
+
+## 起動方法
+
+### 1. リポジトリをクローン
 
 ```bash
-npm run reset-project
+git clone https://github.com/aira70901-lgtm/HONDANA.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. プロジェクトフォルダへ移動
 
-## Learn more
+```bash
+cd HONDANA
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. パッケージをインストール
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+### 4. Expoを起動
 
-Join our community of developers creating universal apps.
+```bash
+npx expo start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+表示されたQRコードをExpo Goで読み取ることで、対応する実機で動作を確認できます。
+
+---
+
+## GitHub
+
+https://github.com/aira70901-lgtm/HONDANA
+
+---
+
+## 今後について
+
+App Storeでの一般公開に向けた準備を進めています。
